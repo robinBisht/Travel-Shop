@@ -1,24 +1,25 @@
-import React,{useState,useEffect} from 'react'
-import Axios from 'axios';
-import {Row,Col} from 'antd';
-import ProductImage from './Sections/ProductImage';
-import ProductInfo from './Sections/ProducInfo';
-import {addToCart} from '../../../_actions/user_actions';
-import {useDispatch} from 'react-redux';
 
+import React, { useEffect, useState } from 'react'
+import Axios from 'axios'
+import { Row, Col } from 'antd';
+import ProductImage from './Sections/ProductImage';
+import ProductInfo from './Sections/ProducInfo'
+import { addToCart } from '../../../_actions/user_actions';
+import { useDispatch } from 'react-redux';
 function DetailProductPage(props) {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const productId = props.match.params.productId
-    const [Product,setProduct] = useState([])
+    const [Product, setProduct] = useState([])
 
     useEffect(() => {
-        Axios.get(`/api/product/product_by_id?id=${productId}&type=single`)
+        Axios.get(`/api/product/products_by_id?id=${productId}&type=single`)
             .then(response => {
                 setProduct(response.data[0])
             })
-    },[])
 
-    const addToCartHandler = productId => {
+    }, [])
+
+    const addToCartHandler = (productId) => {
         dispatch(addToCart(productId))
     }
 
